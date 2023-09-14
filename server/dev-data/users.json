@@ -1,0 +1,28 @@
+[
+  {
+    "_id": "5c8a1d5b0190b214360dc001",
+    "username": "user1",
+    "password": "$2a$12$i/qp2lo72t5803Kqgoit7Or/5HHBT05mZnUHYmeU4aNQmJ/p8fMMa",
+    "savedRecipes": [
+      "5c8a1d5b0190b214360dc101",
+      "5c8a1d5b0190b214360dc102"
+    ]
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc002",
+    "username": "user2",
+    "password": "$2a$12$NrErw9iuUcab/.hLb1zPQum2DBCxMhzdnbtc8KNdSBFfGUcxeJcau",
+    "savedRecipes": [
+      "5c8a1d5b0190b214360dc103"
+    ]
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc003",
+    "username": "user3",
+    "password": "$2a$12$KSDcP3/KAtBbNwotYx/3oeEvcT79Bs4iWjW3m.daWkCdfpeZgqHxy",
+    "savedRecipes": [
+      "5c8a1d5b0190b214360dc104",
+      "5c8a1d5b0190b214360dc105"
+    ]
+  }
+]

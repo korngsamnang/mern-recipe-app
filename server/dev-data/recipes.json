@@ -1,0 +1,76 @@
+[
+  {
+    "_id": "5c8a1d5b0190b214360dc101",
+    "name": "Spaghetti Carbonara",
+    "ingredients": [
+      "200g spaghetti",
+      "2 large eggs",
+      "100g pancetta",
+      "50g Pecorino cheese",
+      "Salt and pepper"
+    ],
+    "instructions": "1. Boil spaghetti until al dente...\n2. In a separate pan, cook pancetta...\n3. Whisk eggs and Pecorino cheese...\n4. Combine spaghetti, pancetta, and egg mixture...\n5. Season with salt and pepper...",
+    "imageUrl": "https://www.allrecipes.com/thmb/8QzNWDvGhdry6V1jnyJWIhKA_nk=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/20144-banana-banana-bread-mfs-57-0bb49d050a6941c4b3715e57b8e6badd.jpg",
+    "cookingTime": 30,
+    "userOwner": "5c8a1d5b0190b214360dc001"
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc102",
+    "name": "Chicken Alfredo",
+    "ingredients": [
+      "8 oz fettuccine",
+      "2 cups heavy cream",
+      "1 cup grated Parmesan cheese",
+      "2 boneless, skinless chicken breasts",
+      "Salt and pepper"
+    ],
+    "instructions": "1. Cook fettuccine until al dente...\n2. Season chicken with salt and pepper...\n3. Cook chicken until done...\n4. In a saucepan, heat heavy cream...\n5. Add Parmesan cheese to the cream...\n6. Combine pasta, sliced chicken, and sauce...",
+    "imageUrl": "https://www.allrecipes.com/thmb/VXcpi34_cDSIBC29k_5D-hBANgo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7642461_Jalapeno-Cheddar-Cornbread-Muffins_4x3-b35286c68ce3410e8418d62b61e01c9f.jpg",
+    "cookingTime": 45,
+    "userOwner": "5c8a1d5b0190b214360dc001"
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc103",
+    "name": "Caesar Salad",
+    "ingredients": [
+      "Romaine lettuce",
+      "Croutons",
+      "Parmesan cheese",
+      "Caesar dressing"
+    ],
+    "instructions": "1. Toss lettuce and croutons...\n2. Add grated Parmesan cheese...\n3. Drizzle with Caesar dressing...",
+    "imageUrl": "https://www.allrecipes.com/thmb/eUA5eDqv6NQPIMflBeGBQJsK6mg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7643060_Shrimp-and-Pepper-Stir-Fry_France-C_4x3-35b3f38fa5234d158c691a510abcc982.jpg",
+    "cookingTime": 15,
+    "userOwner": "5c8a1d5b0190b214360dc002"
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc104",
+    "name": "Chocolate Cake",
+    "ingredients": [
+      "1 3/4 cups all-purpose flour",
+      "1 1/2 tsp baking powder",
+      "1 1/2 tsp baking soda",
+      "3/4 cup unsweetened cocoa powder",
+      "2 cups sugar"
+    ],
+    "instructions": "1. Preheat oven to 350°F...\n2. Mix dry ingredients together...\n3. Add wet ingredients and mix well...\n4. Pour into greased and floured pans...\n5. Bake for 30-35 minutes...",
+    "imageUrl": "https://www.allrecipes.com/thmb/UxwNR1WwnSrDmUiBxF5mvyA7SEw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7568422_Chicken-Broccoli-Rice-Skillet_TheDailyGourmet_4x3-87d917cc76304331a5c5a99fcd9366e9.jpg",
+    "cookingTime": 50,
+    "userOwner": "5c8a1d5b0190b214360dc003"
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc105",
+    "name": "Vegetable Stir-Fry",
+    "ingredients": [
+      "Broccoli florets",
+      "Bell peppers",
+      "Carrots",
+      "Soy sauce",
+      "Ginger"
+    ],
+    "instructions": "1. Heat oil in a wok...\n2. Add ginger and garlic...\n3. Stir-fry vegetables...\n4. Add soy sauce...\n5. Serve hot...",
+    "imageUrl": "https://www.allrecipes.com/thmb/9OIt_Jtg1JdsEwAbLtEgpNIVt6g=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7570310_Mango-Daiquiri_Yoly_4x3-092bf6159e334aaaa2af7797577e81b3.jpg",
+    "cookingTime": 20,
+    "userOwner": "5c8a1d5b0190b214360dc003"
+  }
+]
