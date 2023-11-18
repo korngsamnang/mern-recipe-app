@@ -5,7 +5,7 @@
 This is a full-stack recipe application built with the MERN (MongoDB, Express.js, React, Node.js) stack.
 
 > A full-stack recipe app built with the MERN stack.
-![](https://github.com/korngsamnang/mern-recipe-app/assets/99709883/077fe65b-8fe8-4ad9-916c-a6a14350f9fb)
+![](https://github.com/korngsamnang/mern-recipe-app/assets/99709883/3bb17d35-4fac-48b9-b901-78bdbe514bc9)
 
 ## Features
 
