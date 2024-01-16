@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:3000/api/v1/users",
+    baseURL: "https://v1-recipe-api-92ace21d0c33.herokuapp.com/api/v1/users",
     withCredentials: true,
 });
 
