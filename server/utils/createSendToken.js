@@ -16,6 +16,7 @@ export const createSendToken = (user, statusCode, req, res) => {
         withCredentials: true,
         sameSite: "none",
         httpOnly: true,
+        domain: "mern-recipe.netlify.app",
         secure: true,
         maxAge: maxAge * 1000,
     });
