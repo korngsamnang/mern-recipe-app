@@ -74,7 +74,7 @@ However, it is possible to do that by doing some configuration in both the backe
 
 we need to properly set up cors along with `credentials` set to `true`.
 
-```
+```javascript
 app.use(
     cors({
         origin: process.env.CLIENT_URL,
@@ -87,7 +87,7 @@ app.use(
 
 I use Axios, so along with baseURL, we need to add `withCredentials: true`.
 
-```
+```javascript
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true,
@@ -98,7 +98,7 @@ const api = axios.create({
 
 When sending a cookie from the backend to the frontend, we have to specify options like this:
 
-```
+```javascript
  res.cookie("jwt", token, {
     expires: new Date(
         Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
