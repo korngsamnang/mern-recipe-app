@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(
     // Production
     cors({
-        origin: ["http://localhost:5173"],
+        origin: ["https://mern-recipe.netlify.app/"],
         method: ["GET", "POST"],
         credentials: true,
     })
