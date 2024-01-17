@@ -72,7 +72,7 @@ However, it is possible to do that by doing some configuration in both the backe
 
 ### Steps 1: Configure the backend
 
-we need to properly set up cors along with `credentials` set to `true`.
+We need to properly set up cors along with `credentials` set to `true`.
 
 ```javascript
 app.use(
