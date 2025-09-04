@@ -1,0 +1,17 @@
+# Node modules
+node_modules
+npm-debug.log
+
+# Environment files
+.env
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# OS files
+.DS_Store

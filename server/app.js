@@ -20,14 +20,19 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(
-    // Production
     cors({
-        origin: ["https://mern-recipe.netlify.app", "http://localhost:5173"],
-        method: ["GET", "POST"],
+        origin: ["http://localhost:3000"], // optional, can be "*"
+        methods: ["GET", "POST"],
         credentials: true,
     })
 );
+
+//TEST
+app.get("/api/v1/hello", (req, res) => {
+    res.status(200).json({ message: "Hello from the server!" });
+});
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/recipes", recipeRouter);

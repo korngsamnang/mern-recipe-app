@@ -1,0 +1,26 @@
+services:
+    frontend:
+        build:
+            context: ./client
+        container_name: frontend
+        ports:
+            - "3000:80" # port 3000 will be accessible on host machine
+        depends_on:
+            - backend
+        networks:
+            - app-network
+
+    backend:
+        build: ./server
+        container_name: backend
+        env_file:
+            - ./server/.env
+        networks:
+            - app-network
+        # Optionally expose port for debugging
+        # ports:
+        #     - "5000:5000"
+
+networks:
+    app-network:
+        driver: bridge
