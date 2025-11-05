@@ -1,0 +1,12 @@
+services:
+    server:
+        image: "${SERVER_IMAGE}:${IMAGE_TAG}"
+        container_name: server
+        networks:
+            - app-network
+        restart: always
+
+networks:
+    app-network:
+        driver: bridge
+        name: app-network

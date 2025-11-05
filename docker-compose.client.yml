@@ -4,15 +4,6 @@ services:
         container_name: client
         ports:
             - "3000:80"
-        depends_on:
-            - server
-        networks:
-            - app-network
-        restart: always
-
-    server:
-        image: "${SERVER_IMAGE}:${IMAGE_TAG}"
-        container_name: server
         networks:
             - app-network
         restart: always
@@ -20,3 +11,4 @@ services:
 networks:
     app-network:
         driver: bridge
+        name: app-network

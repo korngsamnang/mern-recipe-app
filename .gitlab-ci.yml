@@ -51,15 +51,15 @@ build_and_push_backend:
   - export CLIENT_IMAGE="$CI_REGISTRY_IMAGE/client"
   - export SERVER_IMAGE="$CI_REGISTRY_IMAGE/server"
   - export IMAGE_TAG="$CI_COMMIT_SHORT_SHA"
-  script:
-  - echo "🚀 Deploying $SERVICE_NAME..."
-  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.yml $SSH_USER@$SSH_HOST:~/
-  - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST " export CLIENT_IMAGE='$CLIENT_IMAGE' && export SERVER_IMAGE='$SERVER_IMAGE' && export IMAGE_TAG='$IMAGE_TAG' && docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY' && docker compose pull && docker compose up -d && docker system prune -af --volumes "
 
 deploy_frontend:
   extends: .deploy_template
   variables:
     SERVICE_NAME: "client"
+  script:
+  - echo "🚀 Deploying $SERVICE_NAME..."
+  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.client.yml $SSH_USER@$SSH_HOST:~/
+  - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST " export CLIENT_IMAGE='$CLIENT_IMAGE' && export IMAGE_TAG='$IMAGE_TAG' && docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY' && docker compose -f docker-compose.client.yml pull && docker compose -f docker-compose.client.yml up -d && docker system prune -af --volumes "
   rules:
   - changes:
     - "client/**/*"
@@ -68,6 +68,10 @@ deploy_backend:
   extends: .deploy_template
   variables:
     SERVICE_NAME: "server"
+  script:
+  - echo "🚀 Deploying $SERVICE_NAME..."
+  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.server.yml $SSH_USER@$SSH_HOST:~/
+  - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST " export SERVER_IMAGE='$SERVER_IMAGE' && export IMAGE_TAG='$IMAGE_TAG' && docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY' && docker compose -f docker-compose.server.yml pull && docker compose -f docker-compose.server.yml up -d && docker system prune -af --volumes "
   rules:
   - changes:
     - "server/**/*"
