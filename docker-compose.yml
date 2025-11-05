@@ -1,18 +1,18 @@
 services:
-    frontend:
+    client:
         image: "${IMAGE_NAME}:${IMAGE_TAG}"
-        container_name: frontend
+        container_name: client
         ports:
             - "3000:80"
         depends_on:
-            - backend
+            - server
         networks:
             - app-network
         restart: always
 
-    backend:
+    server:
         image: "${IMAGE_NAME}:${IMAGE_TAG}"
-        container_name: backend
+        container_name: server
         networks:
             - app-network
         restart: always
