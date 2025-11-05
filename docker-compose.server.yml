@@ -6,7 +6,7 @@ services:
             - app-network
         restart: always
         env_file:
-            - ~/.env
+            - ~/.env.server
 
 networks:
     app-network:
