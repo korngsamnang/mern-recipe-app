@@ -16,9 +16,6 @@ services:
         networks:
             - app-network
         restart: always
-        # Uncomment for debugging
-        # ports:
-        #   - "5000:5000"
 
 networks:
     app-network:
