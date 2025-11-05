@@ -1,25 +1,26 @@
+version: "3.9"
+
 services:
     frontend:
-        build:
-            context: ./client
+        image: "${IMAGE_NAME}:${IMAGE_TAG}"
         container_name: frontend
         ports:
-            - "3000:80" # port 3000 will be accessible on host machine
+            - "3000:80"
         depends_on:
             - backend
         networks:
             - app-network
+        restart: always
 
     backend:
-        build: ./server
+        image: "${IMAGE_NAME}:${IMAGE_TAG}"
         container_name: backend
-        env_file:
-            - ./server/.env
         networks:
             - app-network
-        # Optionally expose port for debugging
+        restart: always
+        # Uncomment for debugging
         # ports:
-        #     - "5000:5000"
+        #   - "5000:5000"
 
 networks:
     app-network:

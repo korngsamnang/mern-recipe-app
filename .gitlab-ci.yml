@@ -5,7 +5,11 @@ workflow:
 
 stages:
 - build
+- deploy
 
+# ------------------------------
+# BUILD STAGE
+# ------------------------------
 .build_and_push_template:
   stage: build
   image: docker:20.10.16
@@ -33,6 +37,35 @@ build_and_push_backend:
   extends: .build_and_push_template
   variables:
     SERVICE_NAME: "server"
+  rules:
+  - changes:
+    - "server/**/*"
+
+# ------------------------------
+# DEPLOY STAGE
+# ------------------------------
+.deploy_template:
+  stage: deploy
+  before_script:
+  - chmod 400 $SSH_PRIVATE_KEY
+  - export IMAGE_NAME="$CI_REGISTRY_IMAGE/$SERVICE_NAME"
+  - export IMAGE_TAG="$CI_COMMIT_SHORT_SHA"
+  script:
+  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.yml $SSH_USER@$SSH_HOST:~/app/
+  - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST " export IMAGE_NAME='$IMAGE_NAME' && export IMAGE_TAG='$IMAGE_TAG' && docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY' && docker compose pull $SERVICE_NAME && docker compose up -d $SERVICE_NAME "
+
+deploy_frontend:
+  extends: .deploy_template
+  variables:
+    SERVICE_NAME: "frontend"
+  rules:
+  - changes:
+    - "client/**/*"
+
+deploy_backend:
+  extends: .deploy_template
+  variables:
+    SERVICE_NAME: "backend"
   rules:
   - changes:
     - "server/**/*"
