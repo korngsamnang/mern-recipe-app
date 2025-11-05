@@ -1,6 +1,6 @@
 services:
     client:
-        image: "${IMAGE_NAME}:${IMAGE_TAG}"
+        image: "${CLIENT_IMAGE}:${IMAGE_TAG}"
         container_name: client
         ports:
             - "3000:80"
@@ -11,7 +11,7 @@ services:
         restart: always
 
     server:
-        image: "${IMAGE_NAME}:${IMAGE_TAG}"
+        image: "${SERVER_IMAGE}:${IMAGE_TAG}"
         container_name: server
         networks:
             - app-network
