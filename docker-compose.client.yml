@@ -43,3 +43,6 @@ networks:
     app-network:
         driver: bridge
         name: app-network
+
+volumes:
+    letsencrypt:
