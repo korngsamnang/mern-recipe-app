@@ -51,7 +51,7 @@ build_and_push_backend:
   - export IMAGE_NAME="$CI_REGISTRY_IMAGE/$SERVICE_NAME"
   - export IMAGE_TAG="$CI_COMMIT_SHORT_SHA"
   script:
-  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.yml $SSH_USER@$SSH_HOST:~/app/
+  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.yml $SSH_USER@$SSH_HOST:~/
   - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST " export IMAGE_NAME='$IMAGE_NAME' && export IMAGE_TAG='$IMAGE_TAG' && docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY' && docker compose pull $SERVICE_NAME && docker compose up -d $SERVICE_NAME "
 
 deploy_frontend:
