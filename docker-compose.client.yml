@@ -29,11 +29,11 @@ services:
         container_name: client
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.${APP_NAME}.rule=Host(`${APP_DOMAIN}`)"
-            - "traefik.http.services.${APP_NAME}.loadbalancer.server.port=${APP_PORT}"
-            - "traefik.http.routers.${APP_NAME}.entrypoints=websecure"
-            - "traefik.http.routers.${APP_NAME}.tls.certresolver=letsencrypt"
-            - "traefik.http.routers.${APP_NAME}.middlewares=compression@docker"
+            - "traefik.http.routers.client.rule=Host(`${APP_DOMAIN}`)"
+            - "traefik.http.services.client.loadbalancer.server.port=${APP_PORT}"
+            - "traefik.http.routers.client.entrypoints=websecure"
+            - "traefik.http.routers.client.tls.certresolver=letsencrypt"
+            - "traefik.http.routers.client.middlewares=compression@docker"
             - "traefik.http.middlewares.compression.compress=true"
         networks:
             - app-network
