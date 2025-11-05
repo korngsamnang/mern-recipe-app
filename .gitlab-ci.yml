@@ -57,7 +57,7 @@ build_and_push_backend:
 deploy_frontend:
   extends: .deploy_template
   variables:
-    SERVICE_NAME: "frontend"
+    SERVICE_NAME: "client"
   rules:
   - changes:
     - "client/**/*"
@@ -65,7 +65,7 @@ deploy_frontend:
 deploy_backend:
   extends: .deploy_template
   variables:
-    SERVICE_NAME: "backend"
+    SERVICE_NAME: "server"
   rules:
   - changes:
     - "server/**/*"
