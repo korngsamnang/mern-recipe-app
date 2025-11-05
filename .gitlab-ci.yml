@@ -1,0 +1,36 @@
+workflow:
+  rules:
+  - if: $CI_COMMIT_BRANCH == "feature/deploy-to-k8s"
+    when: always
+
+stages:
+- build
+
+.build_and_push_template:
+  stages:
+  - build
+  before_script:
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  - export IMAGE_NAME="$CI_REGISTRY_IMAGE/$SERVICE_NAME"
+  - export IMAGE_TAG="$IMAGE_NAME:$IMAGE_TAG"
+  script:
+  - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+  - docker push $IMAGE_NAME:$IMAGE_TAG
+
+build_and_push_frontend:
+  extends: .build_and_push_template
+  variables:
+    SERVICE_NAME: "client"
+    IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+  only:
+  - changes
+  - "client/**/*"
+
+build_and_push_backend:
+  extends: .build_and_push_template
+  variables:
+    SERVICE_NAME: "server"
+    IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+  only:
+  - changes
+  - "server/**/*"
