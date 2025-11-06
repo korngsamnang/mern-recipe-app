@@ -48,7 +48,7 @@ build_and_push_backend:
   stage: deploy
   image: bitnami/kubectl:latest
   before_script:
-  - echo "$KUBE_CONFIG" > kubeconfig.yaml
+  - bash -c 'echo "$KUBE_CONFIG" > kubeconfig.yaml'
   - export KUBECONFIG=$(pwd)/kubeconfig.yaml
 
   - export NAMESPACE="mern-recipe-app"
