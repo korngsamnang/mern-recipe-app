@@ -55,8 +55,6 @@ build_and_push_backend:
   - export SERVER_IMAGE="$CI_REGISTRY_IMAGE/server"
   - export IMAGE_TAG="$CI_COMMIT_SHORT_SHA"
 
-  - kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
-
   - |
     kubectl create secret docker-registry regcred \
       --docker-server="$CI_REGISTRY" \
