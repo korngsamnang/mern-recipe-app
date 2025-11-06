@@ -84,12 +84,14 @@ deploy_backend:
     SERVICE_NAME: "server"
   script:
   - echo "🚀 Deploying $SERVICE_NAME to Kubernetes namespace $NAMESPACE..."
+
   - |
     kubectl create secret docker-registry regcred \
       --docker-server="$CI_REGISTRY" \
       --docker-username="$DEPLOY_TOKEN_USERNAME" \
       --docker-password="$DEPLOY_TOKEN_PASSWORD" \
       --namespace $NAMESPACE || echo "Secret regcred already exists"
+
   - |
     kubectl create secret generic backend-env \
       --from-literal=DATABASE="$DATABASE" \
@@ -101,8 +103,10 @@ deploy_backend:
       --from-literal=PORT="$PORT" \
       --namespace $NAMESPACE \
       --dry-run=client -o yaml | kubectl apply -f -
+
   - sed -i "s|\${SERVER_IMAGE}|$SERVER_IMAGE|g" server/kubernetes/deployment.yml
   - sed -i "s|\${IMAGE_TAG}|$IMAGE_TAG|g" server/kubernetes/deployment.yml
+
   - kubectl apply -f server/kubernetes/deployment.yml -n $NAMESPACE
   - kubectl apply -f server/kubernetes/service.yml -n $NAMESPACE
   rules:
