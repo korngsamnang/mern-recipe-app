@@ -58,7 +58,12 @@ build_and_push_backend:
 
   - kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
 
-  - kubectl create secret docker-registry regcred \ --docker-server="$CI_REGISTRY" \ --docker-username="$CI_REGISTRY_USER" \ --docker-password="$CI_REGISTRY_PASSWORD" \ --namespace $NAMESPACE || echo "Secret regcred already exists"
+  - |
+    kubectl create secret docker-registry regcred \
+      --docker-server="$CI_REGISTRY" \
+      --docker-username="$DEPLOY_TOKEN_USERNAME" \
+      --docker-password="$DEPLOY_TOKEN_PASSWORD" \
+      --namespace $NAMESPACE || echo "Secret regcred already exists"
 
 deploy_frontend:
   extends: .deploy_template
