@@ -31,7 +31,7 @@ app.use(
 
 //TEST
 app.get("/api/v1/hello", (req, res) => {
-    res.status(200).json({ message: "Hello from the server!" });
+    res.status(200).json({ message: "Hello from the server!!" });
 });
 
 app.use("/api/v1/users", userRouter);
