@@ -1,7 +1,7 @@
 workflow:
   rules:
-  - if: '$CI_COMMIT_BRANCH == "feature/gitlab-ci"'
-    when: always
+  - if: '$CI_COMMIT_BRANCH == "feature/k8s"'
+  - when: always
 
 stages:
 - build
@@ -46,21 +46,33 @@ build_and_push_backend:
 # ------------------------------
 .deploy_template:
   stage: deploy
+  image: bitnami/kubectl:latest
   before_script:
-  - chmod 400 $SSH_PRIVATE_KEY
+  - echo "$KUBE_CONFIG" > kubeconfig.yaml
+  - export KUBECONFIG=$(pwd)/kubeconfig.yaml
+
+  - export NAMESPACE="mern-recipe-app"
   - export CLIENT_IMAGE="$CI_REGISTRY_IMAGE/client"
   - export SERVER_IMAGE="$CI_REGISTRY_IMAGE/server"
   - export IMAGE_TAG="$CI_COMMIT_SHORT_SHA"
+
+  - kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
+
+  - kubectl create secret docker-registry regcred \ --docker-server="$CI_REGISTRY" \ --docker-username="$CI_REGISTRY_USER" \ --docker-password="$CI_REGISTRY_PASSWORD" \ --namespace $NAMESPACE || echo "Secret regcred already exists"
 
 deploy_frontend:
   extends: .deploy_template
   variables:
     SERVICE_NAME: "client"
   script:
-  - echo "🚀 Deploying $SERVICE_NAME..."
-  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ${DC_ENV_FILE} $SSH_USER@$SSH_HOST:~/.env
-  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.client.yml $SSH_USER@$SSH_HOST:~/
-  - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST " export CLIENT_IMAGE='$CLIENT_IMAGE' && export IMAGE_TAG='$IMAGE_TAG' && docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY' && docker compose -f docker-compose.client.yml pull && docker compose -f docker-compose.client.yml up -d && docker system prune -af --volumes "
+  - echo "🚀 Deploying $SERVICE_NAME to Kubernetes namespace $NAMESPACE..."
+
+  - sed -i "s|\${CLIENT_IMAGE}|$CLIENT_IMAGE|g" client/kubernetes/deployment.yml
+  - sed -i "s|\${IMAGE_TAG}|$IMAGE_TAG|g" client/kubernetes/deployment.yml
+
+  - kubectl apply -f client/kubernetes/deployment.yml -n $NAMESPACE
+  - kubectl apply -f client/kubernetes/service.yml -n $NAMESPACE
+  - kubectl rollout status deployment/client -n $NAMESPACE
   rules:
   - changes:
     - "client/**/*"

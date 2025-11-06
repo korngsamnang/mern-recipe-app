@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: mern-recipe-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: client
+        image: "${CLIENT_IMAGE}:${IMAGE_TAG}"
+        ports:
+        - containerPort: 3000
