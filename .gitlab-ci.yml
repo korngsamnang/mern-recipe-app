@@ -74,7 +74,6 @@ deploy_frontend:
 
   - kubectl apply -f client/kubernetes/deployment.yml -n $NAMESPACE
   - kubectl apply -f client/kubernetes/service.yml -n $NAMESPACE
-  - kubectl rollout status deployment/client -n $NAMESPACE
   rules:
   - changes:
     - "client/**/*"
