@@ -83,10 +83,31 @@ deploy_backend:
   variables:
     SERVICE_NAME: "server"
   script:
-  - echo "🚀 Deploying $SERVICE_NAME..."
-  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ${SERVER_ENV_FILE} $SSH_USER@$SSH_HOST:~/.env.server
-  - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY docker-compose.server.yml $SSH_USER@$SSH_HOST:~/
-  - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SSH_USER@$SSH_HOST " export SERVER_IMAGE='$SERVER_IMAGE' && export IMAGE_TAG='$IMAGE_TAG' && docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY' && docker compose -f docker-compose.server.yml pull && docker compose -f docker-compose.server.yml up -d && docker system prune -af --volumes "
+  - echo "🚀 Deploying $SERVICE_NAME to Kubernetes namespace $NAMESPACE...
+
+  - |
+    kubectl create secret docker-registry regcred \
+      --docker-server="$CI_REGISTRY" \
+      --docker-username="$DEPLOY_TOKEN_USERNAME" \
+      --docker-password="$DEPLOY_TOKEN_PASSWORD" \
+      --namespace $NAMESPACE || echo "Secret regcred already exists"
+  - |
+    kubectl create secret generic backend-env \
+      --from-literal=DATABASE="$DATABASE" \
+      --from-literal=DATABASE_PASSWORD="$DATABASE_PASSWORD" \
+      --from-literal=JWT_SECRET="$JWT_SECRET" \
+      --from-literal=JWT_EXPIRES_IN="$JWT_EXPIRES_IN" \
+      --from-literal=JWT_COOKIE_EXPIRES_IN="$JWT_COOKIE_EXPIRES_IN" \
+      --from-literal=NODE_ENV="$NODE_ENV" \
+      --from-literal=PORT="$PORT" \
+      --namespace $NAMESPACE \
+      --dry-run=client -o yaml | kubectl apply -f -
+
+  - sed -i "s|\${SERVER_IMAGE}|$SERVER_IMAGE|g" server/kubernetes/deployment.yml
+  - sed -i "s|\${IMAGE_TAG}|$IMAGE_TAG|g" server/kubernetes/deployment.yml
+
+  - kubectl apply -f server/kubernetes/deployment.yml -n $NAMESPACE
+  - kubectl apply -f server/kubernetes/service.yml -n $NAMESPACE
   rules:
   - changes:
     - "server/**/*"
